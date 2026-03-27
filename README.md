@@ -1,6 +1,6 @@
 # Movie Explorer
 
-Projet Flutter
+Mon projet Flutter
 
 ## Prérequis
 - Installer Flutter SDK
