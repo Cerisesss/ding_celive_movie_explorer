@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:shared_preferences/shared_preferences.dart';
    
 import 'models/movie.dart';
-import 'models/post.dart';
 import 'widgets/MovieCard.dart';
 
 void main() async {
@@ -43,7 +43,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   List<Movie> movies = [];
   String query = "";
-  TextEditingController searchController = TextEditingController();
 
   @override
   void initState() {
@@ -70,7 +69,9 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           Expanded(
-            child : ListView.builder(
+            child : movies.isEmpty
+            ? const Text('No movies available')
+            : ListView.builder(
               itemCount: movies.length,
               itemBuilder: (context, index) {
                 return MovieCard(movie: movies[index]); 
@@ -98,6 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
         setState(() {
           movies = results.map((movie) => Movie.fromJson(movie)).toList();
+          movieLocalStorage(movies);
         });
       } 
     }catch (e){
@@ -124,10 +126,36 @@ class _MyHomePageState extends State<MyHomePage> {
         final results = data['results'] as List;
         setState(() {
           movies = results.map((movie) => Movie.fromJson(movie)).toList();
+          movieLocalStorage(movies); 
         });
       }
     }catch (e){
       throw Exception('Error : $e');
+    }
+  }
+
+  Future<void> movieLocalStorage(List<Movie> movies) async {
+    final save = await SharedPreferences.getInstance();
+    List<String> moviesJson = movies.map((movie) => jsonEncode(movie.toJson())).toList();
+    await save.setStringList('saved_movies', moviesJson);
+  }
+
+  Future<List<Movie>> loadMoviesLocalStorage() async {
+    final prefs = await SharedPreferences.getInstance();
+    final moviesJson = prefs.getStringList('saved_movies') ?? [];
+
+    return moviesJson.map((movie) => Movie.fromJson(jsonDecode(movie))).toList();
+  }
+
+  Future<void> loadMovies() async {
+    List<Movie> storedMovies = await loadMoviesLocalStorage();
+
+    if (storedMovies.isNotEmpty) {
+      setState(() {
+        movies = storedMovies;
+      });
+    } else {
+      _fetchPost();
     }
   }
 }
