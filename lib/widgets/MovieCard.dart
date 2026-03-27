@@ -24,15 +24,6 @@ class MovieCard extends StatelessWidget {
           height: 150,
           fit: BoxFit.cover,
         ),
-        
-        
-        
-        // leading: Image.network(
-        //   "$apiUrlImg${movie.poster_path}",
-        //   width: 100,
-        //   height: 150,
-        //   fit: BoxFit.cover,
-        // ),
         title: Text(
           movie.title, 
           style: const TextStyle(

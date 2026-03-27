@@ -7,8 +7,8 @@ part 'movieDetails.g.dart';
 
 @JsonSerializable()
 class MovieDetails {
-  final bool adult;
-  final String backdrop_path;
+  final bool? adult;
+  final String? backdrop_path;
   final int budget;
   final List<Genre> genres;
   final String homepage;
@@ -21,15 +21,15 @@ class MovieDetails {
   final List<Production> production_companies;
   final String release_date;
   final int revenue;
-  final int runtime;
+  final int? runtime;
   final String title;
   final double vote_average;
-  final int vote_count;
-  final bool video;
+  final int? vote_count;
+  final bool? video;
 
   MovieDetails({
-    required this.adult,
-    required this.backdrop_path, 
+    this.adult,
+    this.backdrop_path, 
     required this.budget, 
     required this.genres, 
     required this.homepage, 
@@ -42,11 +42,11 @@ class MovieDetails {
     required this.production_companies, 
     required this.release_date, 
     required this.revenue,
-    required this.runtime,
+    this.runtime,
     required this.title,
     required this.vote_average,
-    required this.vote_count,
-    required this.video,
+    this.vote_count,
+    this.video,
   });
   
   factory MovieDetails.fromJson(Map<String, dynamic> json) => _$MovieDetailsFromJson(json);

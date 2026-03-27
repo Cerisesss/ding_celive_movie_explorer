@@ -86,12 +86,17 @@ class _MovieDetailsCardState extends State<MovieDetailsCard> {
       uri,
       headers: {'User-Agent': 'Mozilla/5.0', 'Accept': 'application/json'},
     );
-    if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
 
-      setState(() {
-        movieDetails  = MovieDetails.fromJson(data);
-      });
+    try{
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+
+        setState(() {
+          movieDetails  = MovieDetails.fromJson(data);
+        });
+      }
+    }catch (e){
+      throw Exception('Error : $e');
     }
   }
 }

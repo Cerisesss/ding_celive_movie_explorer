@@ -42,6 +42,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   List<Movie> movies = [];
+  String query = "";
+  TextEditingController searchController = TextEditingController();
 
   @override
   void initState() {
@@ -53,12 +55,30 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Movie explorer")),
-      body: ListView.builder(
-        itemCount: movies.length,
-        itemBuilder: (context, index) {
-          return MovieCard(movie: movies[index]); 
-        },
-      )
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SearchBar(
+              hintText: 'Rechercher un film...',
+              onChanged: (String query) async {
+                if(query == null || query.isEmpty){
+                  return _fetchPost();
+                } 
+                await _searchMovies(query);
+              },
+            ),
+          ),
+          Expanded(
+            child : ListView.builder(
+              itemCount: movies.length,
+              itemBuilder: (context, index) {
+                return MovieCard(movie: movies[index]); 
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -70,59 +90,44 @@ class _MyHomePageState extends State<MyHomePage> {
       uri,
       headers: {'User-Agent': 'Mozilla/5.0', 'Accept': 'application/json'},
     );
-    if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      final results = data['results'] as List;
 
-      setState(() {
-        movies = results.map((movie) => Movie.fromJson(movie)).toList();
-      });
+    try {
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        final results = data['results'] as List;
+
+        setState(() {
+          movies = results.map((movie) => Movie.fromJson(movie)).toList();
+        });
+      } 
+    }catch (e){
+      throw Exception('Error : $e');
+    }
+  }
+
+  Future _searchMovies(String query) async {
+    if(query.isEmpty){
+      return;
+    } 
+
+    final String? apiKey = dotenv.env['API_KEY'];
+
+    final uri = Uri.parse("https://api.themoviedb.org/3/search/movie?api_key=$apiKey&query=$query");
+    final response = await http.get(
+      uri,
+      headers: {'User-Agent': 'Mozilla/5.0', 'Accept': 'application/json'},
+    );
+
+    try{
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        final results = data['results'] as List;
+        setState(() {
+          movies = results.map((movie) => Movie.fromJson(movie)).toList();
+        });
+      }
+    }catch (e){
+      throw Exception('Error : $e');
     }
   }
 }
-
-
-// class _MyHomePageState extends State<MyHomePage> {
-// final List<Movie> movies = [
-//   Movie("Inception", "2010", "https://m.media-amazon.com/images/M/MV5BZjhkNjM0ZTMtNGM5MC00ZTQ3LTk3YmYtZTkzYzdiNWE0ZTA2XkEyXkFqcGc@._V1_.jpg", "Un voleur qui infiltre les rêves pour voler des secrets."),
-//   Movie("Interstellar", "2014", "https://image.tmdb.org/t/p/w500/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg", "Exploration spatiale pour sauver l’humanité."),
-//   Movie("The Dark Knight", "2008", "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg", "Batman affronte le Joker.",),
-// ];
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(title: Text("Movie explorer")),
-//       body: ListView.builder(
-//         itemCount: movies.length,
-//         itemBuilder: (context, index) {
-//           return MovieCard(movie: movies[index]); 
-//         },
-//       ),
-//       floatingActionButton: FloatingActionButton(onPressed: () {
-        
-//       }, child: Icon(Icons.home)),
-       
-//     );
-//   }
-// }
-
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Scaffold(
-  //     body: ListView.separated(
-  //       itemCount: posts.length,
-  //       separatorBuilder: (context, index) => const Divider(),
-  //       itemBuilder: (context, index) {
-  //         final post = posts[index];
-
-  //         return ListTile(
-  //           title: Text(post.title),
-  //         );
-  //       },
-  //     ),
-  //     floatingActionButton: FloatingActionButton(onPressed: () {
-  //     }, child: Icon(Icons.refresh)),
-  //   );
-  // }
