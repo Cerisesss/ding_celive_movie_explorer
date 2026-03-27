@@ -1,0 +1,27 @@
+# Movie Explorer
+
+Projet Flutter
+
+## Prérequis
+- Installer Flutter SDK
+- Android Studio ou Visual Studio Code avec les plugins Flutter et Dart 
+avec les plugins Flutter et Dart
+
+## Installation
+- Cloner le projet : git clone <projet>
+- Se deplacer dans le répertoire du projet
+- Utiliser la commande **flutter pub get** pour installer les dépendances
+
+## Configuration de l’environnement
+- Créez un fichier **.env** à la racine du projet
+- Copiez le contenu de **.env.example** dans le fichier **.env**
+- Remplacez **API_KEY** par **API_KEY=229944595054b334baf9fb55b282ef17** ou par votre propre **clé api** (voir doc utile)
+
+## Lancer le projet
+- Tapez **flutter run** puis selectionner le navigateur souhaité ou **flutter run -d web-server** puis ouvrez manuellement **http://localhost:PORT** dans votre navigateur
+
+## DOC utile :
+  - API key : https://developer.themoviedb.org/docs/getting-started
+  - API : https://developer.themoviedb.org/reference/movie-images
+  - .env : https://medium.com/@matteo.dcj/using-environment-variables-with-flutter-dotenv-and-dotenv-in-flutter-step-by-step-guide-709ac93e8ec2
+  - Image : https://developer.themoviedb.org/docs/image-basics
