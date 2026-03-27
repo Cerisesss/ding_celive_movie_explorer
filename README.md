@@ -24,4 +24,5 @@ avec les plugins Flutter et Dart
   - API key : https://developer.themoviedb.org/docs/getting-started
   - API : https://developer.themoviedb.org/reference/movie-images
   - .env : https://medium.com/@matteo.dcj/using-environment-variables-with-flutter-dotenv-and-dotenv-in-flutter-step-by-step-guide-709ac93e8ec2
-  - Image : https://developer.themoviedb.org/docs/image-basics
+  - API TMDB Image : https://developer.themoviedb.org/docs/image-basics
+  - Barre de recherche : https://api.flutter.dev/flutter/material/SearchBar-class.html
