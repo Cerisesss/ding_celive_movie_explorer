@@ -15,7 +15,7 @@ avec les plugins Flutter et Dart
 ## Configuration de l’environnement
 - Créez un fichier **.env** à la racine du projet
 - Copiez le contenu de **.env.example** dans le fichier **.env**
-- Remplacez **API_KEY** par **API_KEY=229944595054b334baf9fb55b282ef17** ou par votre propre **clé api** (voir doc utile)
+- Remplacez la valeur du **API_KEY** par votre propre **clé api** (voir doc utile)
 
 ## Lancer le projet
 - Tapez **flutter run** puis selectionner le navigateur souhaité ou **flutter run -d web-server** puis ouvrez manuellement **http://localhost:PORT** dans votre navigateur
