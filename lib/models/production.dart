@@ -4,9 +4,9 @@ part 'production.g.dart';
 @JsonSerializable()
 class Production{
   final int id;
-  final String logo_path;
+  final String? logo_path;
   final String name;
-  final String origin_country;
+  final String? origin_country;
 
   Production(
     this.id,

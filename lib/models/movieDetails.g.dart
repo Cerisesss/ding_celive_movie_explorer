@@ -13,20 +13,20 @@ MovieDetails _$MovieDetailsFromJson(Map<String, dynamic> json) => MovieDetails(
   genres: (json['genres'] as List<dynamic>)
       .map((e) => Genre.fromJson(e as Map<String, dynamic>))
       .toList(),
-  homepage: json['homepage'] as String,
+  homepage: json['homepage'] as String?,
   id: (json['id'] as num).toInt(),
-  original_language: json['original_language'] as String,
-  original_title: json['original_title'] as String,
-  overview: json['overview'] as String,
+  original_language: json['original_language'] as String?,
+  original_title: json['original_title'] as String?,
+  overview: json['overview'] as String?,
   popularity: (json['popularity'] as num).toDouble(),
-  poster_path: json['poster_path'] as String,
+  poster_path: json['poster_path'] as String?,
   production_companies: (json['production_companies'] as List<dynamic>)
       .map((e) => Production.fromJson(e as Map<String, dynamic>))
       .toList(),
-  release_date: json['release_date'] as String,
+  release_date: json['release_date'] as String?,
   revenue: (json['revenue'] as num).toInt(),
   runtime: (json['runtime'] as num?)?.toInt(),
-  title: json['title'] as String,
+  title: json['title'] as String?,
   vote_average: (json['vote_average'] as num).toDouble(),
   vote_count: (json['vote_count'] as num?)?.toInt(),
   video: json['video'] as bool?,

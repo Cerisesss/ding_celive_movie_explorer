@@ -37,11 +37,13 @@ class _MovieDetailsCardState extends State<MovieDetailsCard> {
     }
 
     return Scaffold(
-      appBar: AppBar(title: Text(movieDetails!.title)),
+      appBar: AppBar(title: Text(movieDetails!.title ?? 'Details du film')),
       body: Row(
         children: [
           Image.network(
-            "$apiUrlImg${movieDetails!.poster_path}",
+            movieDetails!.poster_path != null
+                ? "$apiUrlImg${movieDetails!.poster_path}"
+                : '',
             width: 100,
             height: 150,
             fit: BoxFit.cover,
@@ -53,22 +55,22 @@ class _MovieDetailsCardState extends State<MovieDetailsCard> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "${movieDetails!.title} (${movieDetails!.original_title})",
+                    "${movieDetails!.title ?? 'Titre inconnu'} (${movieDetails!.original_title ?? 'Titre original inconnu'})",
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Text("Lien : ${movieDetails!.homepage}"),
+                  Text("Lien : ${movieDetails!.homepage ?? '/'}"),
                   Text("Genres : ${movieDetails!.genres.map((e) => e.name).join(', ')}"),
-                  Text("Langue : ${movieDetails!.original_language}"),
-                  Text("Date : ${movieDetails!.release_date}"),
+                  Text("Langue : ${movieDetails!.original_language ?? '/'}"),
+                  Text("Date : ${movieDetails!.release_date ?? '/'}"),
                   Text("Popularité : ${movieDetails!.popularity}"),
                   Text("Budget : ${movieDetails!.budget}"),
                   Text("Revenue : ${movieDetails!.revenue}"),
                   Text("Compagnie de production : ${movieDetails!.production_companies.map((e) => e.name).join(', ')}"),
                   Text("Note : ${movieDetails!.vote_average}"),
-                  Text(movieDetails!.overview),
+                  Text(movieDetails!.overview ?? 'Aucun résumé disponible'),
                 ],
               ),
             ),

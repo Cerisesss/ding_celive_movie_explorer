@@ -11,18 +11,18 @@ class MovieDetails {
   final String? backdrop_path;
   final int budget;
   final List<Genre> genres;
-  final String homepage;
+  final String? homepage;
   final int id;
-  final String original_language;
-  final String original_title;
-  final String overview;
+  final String? original_language;
+  final String? original_title;
+  final String? overview;
   final double popularity;
-  final String poster_path;
+  final String? poster_path;
   final List<Production> production_companies;
-  final String release_date;
+  final String? release_date;
   final int revenue;
   final int? runtime;
-  final String title;
+  final String? title;
   final double vote_average;
   final int? vote_count;
   final bool? video;
@@ -32,18 +32,18 @@ class MovieDetails {
     this.backdrop_path, 
     required this.budget, 
     required this.genres, 
-    required this.homepage, 
+    this.homepage, 
     required this.id, 
-    required this.original_language, 
-    required this.original_title, 
-    required this.overview, 
+    this.original_language, 
+    this.original_title, 
+    this.overview, 
     required this.popularity, 
-    required this.poster_path, 
+    this.poster_path, 
     required this.production_companies, 
-    required this.release_date, 
+    this.release_date, 
     required this.revenue,
     this.runtime,
-    required this.title,
+    this.title,
     required this.vote_average,
     this.vote_count,
     this.video,

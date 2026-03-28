@@ -8,9 +8,9 @@ part of 'production.dart';
 
 Production _$ProductionFromJson(Map<String, dynamic> json) => Production(
   (json['id'] as num).toInt(),
-  json['logo_path'] as String,
+  json['logo_path'] as String?,
   json['name'] as String,
-  json['origin_country'] as String,
+  json['origin_country'] as String?,
 );
 
 Map<String, dynamic> _$ProductionToJson(Production instance) =>
