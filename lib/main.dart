@@ -47,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    _fetchPost();
+    loadMovies();
   }
 
   @override
@@ -98,8 +98,8 @@ class _MyHomePageState extends State<MyHomePage> {
         final results = data['results'] as List;
 
         setState(() {
-          movies = results.map((movie) => Movie.fromJson(movie)).toList();
-          movieLocalStorage(movies);
+          final result = results.map((movie) => Movie.fromJson(movie)).toList();
+          movieLocalStorage(result);
         });
       } 
     }catch (e){

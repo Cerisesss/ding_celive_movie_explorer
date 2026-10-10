@@ -40,10 +40,10 @@ class _MovieDetailsCardState extends State<MovieDetailsCard> {
       appBar: AppBar(title: Text(movieDetails!.title ?? 'Details du film')),
       body: Row(
         children: [
+          if(movieDetails?.poster_path != null) 
+          Icon(Icons.error, size : 100),
           Image.network(
-            movieDetails!.poster_path != null
-                ? "$apiUrlImg${movieDetails!.poster_path}"
-                : '',
+            "$apiUrlImg${movieDetails!.poster_path}",
             width: 100,
             height: 150,
             fit: BoxFit.cover,
